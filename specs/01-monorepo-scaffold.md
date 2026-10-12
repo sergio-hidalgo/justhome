@@ -1,6 +1,6 @@
 # Spec 01 — Monorepo scaffold
 
-Status: todo
+Status: done
 Phase: 0
 Depends on: —
 
@@ -17,7 +17,7 @@ Out: any business logic, DB tables, UI beyond a placeholder page.
 
 R-01.1 Layout:
 
-```
+```text
 apps/web          Astro SSR (@astrojs/node), Preact integration
 apps/api          Fastify + TypeScript, GET /health
 packages/engine   empty index.ts exporting ENGINE_VERSION = "0.1.0"
