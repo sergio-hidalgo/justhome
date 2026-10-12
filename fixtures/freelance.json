@@ -1,0 +1,156 @@
+{
+  "name": "freelance-ana-empresa-x",
+  "source": "DeepSeek notes §Ejemplo numérico completo (verified correct)",
+  "issues": {
+    "price": [
+      8000,
+      10000,
+      12000
+    ],
+    "weeks": [
+      4,
+      6,
+      8
+    ],
+    "upfrontPct": [
+      20,
+      40,
+      60
+    ]
+  },
+  "me": {
+    "label": "Ana (freelance)",
+    "weights": {
+      "price": 0.5,
+      "weeks": 0.3,
+      "upfrontPct": 0.2
+    },
+    "scores": {
+      "price": [
+        0,
+        50,
+        100
+      ],
+      "weeks": [
+        0,
+        50,
+        100
+      ],
+      "upfrontPct": [
+        0,
+        50,
+        100
+      ]
+    },
+    "batnaPackage": {
+      "price": 9000,
+      "weeks": 6,
+      "upfrontPct": 30
+    },
+    "batnaUtility": 32.5
+  },
+  "other": {
+    "label": "Empresa X",
+    "weights": {
+      "price": 0.4,
+      "weeks": 0.45,
+      "upfrontPct": 0.15
+    },
+    "scores": {
+      "price": [
+        100,
+        50,
+        0
+      ],
+      "weeks": [
+        100,
+        50,
+        0
+      ],
+      "upfrontPct": [
+        100,
+        50,
+        0
+      ]
+    },
+    "batnaPackage": {
+      "price": 9000,
+      "weeks": 7,
+      "upfrontPct": 30
+    },
+    "batnaUtility": 52.5
+  },
+  "expected": {
+    "zopaCount": 5,
+    "zopa": [
+      {
+        "price": 8000,
+        "weeks": 6,
+        "upfrontPct": 60,
+        "uMe": 35.0,
+        "uOther": 62.5
+      },
+      {
+        "price": 10000,
+        "weeks": 4,
+        "upfrontPct": 40,
+        "uMe": 35.0,
+        "uOther": 72.5
+      },
+      {
+        "price": 10000,
+        "weeks": 4,
+        "upfrontPct": 60,
+        "uMe": 45.0,
+        "uOther": 65.0
+      },
+      {
+        "price": 10000,
+        "weeks": 6,
+        "upfrontPct": 20,
+        "uMe": 40.0,
+        "uOther": 57.5
+      },
+      {
+        "price": 12000,
+        "weeks": 4,
+        "upfrontPct": 20,
+        "uMe": 50.0,
+        "uOther": 60.0
+      }
+    ],
+    "pareto": [
+      {
+        "price": 10000,
+        "weeks": 4,
+        "upfrontPct": 40,
+        "uMe": 35.0,
+        "uOther": 72.5,
+        "nashProduct": 50.0
+      },
+      {
+        "price": 10000,
+        "weeks": 4,
+        "upfrontPct": 60,
+        "uMe": 45.0,
+        "uOther": 65.0,
+        "nashProduct": 156.25
+      },
+      {
+        "price": 12000,
+        "weeks": 4,
+        "upfrontPct": 20,
+        "uMe": 50.0,
+        "uOther": 60.0,
+        "nashProduct": 131.25
+      }
+    ],
+    "nash": {
+      "price": 10000,
+      "weeks": 4,
+      "upfrontPct": 60,
+      "product": 156.25,
+      "pieShareMe": 0.5
+    }
+  }
+}

@@ -1,0 +1,42 @@
+level,ccaa,province,city,negotiation_margin,itp_rate,holding_A_low,holding_A_high,holding_B_low,holding_B_high,holding_C_low,holding_C_high,horizon_months,rent_per_m2,source_url,as_of,confidence,note
+national,,,,0.06,,183,183,417,417,400,800,3,15.1,https://www.diaridetarragona.com/vivienda/271418/16-viviendas-venta-tarragona-rebaja-precio-inicial.html,2026-09-24,low,"margin = idealista Q2-2026 avg listing cut (proxy); holding = AEFI Oct-2026 (A = IBI+comunidad+seguro; B = full empty-home cost, mortgage excluded); ASSUMPTION(holding_C) = 400-800 EUR/month, no published figure, see docs/market-sources.md; rent = idealista Aug-2026"
+city,Illes Balears,Illes Balears,Palma,0.16,,,,,,,,,19.3,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa negotiation index H1-2026; rent idealista Aug-2026
+city,Comunitat Valenciana,Alicante,Alicante,0.13,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Comunitat Valenciana,Valencia,Valencia,0.12,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Canarias,Las Palmas,Las Palmas de Gran Canaria,0.11,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Comunitat Valenciana,Castellón,Castellón de la Plana,0.11,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Castilla y León,Palencia,Palencia,0.10,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Andalucía,Málaga,Málaga,0.09,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Andalucía,Granada,Granada,0.09,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Castilla-La Mancha,Ciudad Real,Ciudad Real,0.09,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,País Vasco,Álava,Vitoria-Gasteiz,0.08,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Cataluña,Tarragona,Tarragona,0.08,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Región de Murcia,Murcia,Murcia,0.08,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Andalucía,Jaén,Jaén,0.08,,,,,,,,,8.3,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026; rent idealista Aug-2026
+city,Castilla-La Mancha,Cuenca,Cuenca,0.08,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Extremadura,Badajoz,Badajoz,0.08,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Andalucía,Cádiz,Cádiz,0.03,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Andalucía,Huelva,Huelva,0.03,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Castilla y León,Soria,Soria,0.03,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Castilla y León,Zamora,Zamora,0.02,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,País Vasco,Gipuzkoa,San Sebastián,0.01,,,,,,,,,,https://www.bolsamania.com/noticias/economia/negociar-el-precio-de-la-vivienda-estas-son-las-ciudades-espanolas-con-mas-margen--22760416.html,2026-06-17,medium,Fotocasa H1-2026
+city,Comunidad de Madrid,Madrid,Madrid,,,,,,,,,,23.3,https://www.que.es/2026/09/01/precio-alquiler-agosto-2026/,2026-09-01,low,no published negotiation gap -> national fallback; rent idealista Aug-2026
+city,Cataluña,Barcelona,Barcelona,,,,,,,,,,20.2,https://www.que.es/2026/09/01/precio-alquiler-agosto-2026/,2026-09-01,low,no published negotiation gap -> national fallback; rent idealista Aug-2026
+city,Extremadura,Cáceres,Cáceres,,,,,,,,,,8.3,https://www.que.es/2026/09/01/precio-alquiler-agosto-2026/,2026-09-01,low,rent idealista Aug-2026
+ccaa,Comunidad de Madrid,,,,0.06,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Navarra,,,,0.06,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate (foral)
+ccaa,Canarias,,,,0.065,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Andalucía,,,,0.07,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,La Rioja,,,,0.07,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Aragón,,,,0.08,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Principado de Asturias,,,,0.08,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Castilla y León,,,,0.08,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Extremadura,,,,0.08,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Región de Murcia,,,,0.08,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Castilla-La Mancha,,,,0.09,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,low,VERIFY: second source reports 7-9%
+ccaa,Galicia,,,,0.10,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,low,VERIFY: second source reports 8%
+ccaa,Comunitat Valenciana,,,,0.10,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Cantabria,,,,0.10,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,medium,ITP general rate
+ccaa,Cataluña,,,,0.10,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,low,"VERIFY brackets: 10% base; sources disagree on 11/12/13% thresholds"
+ccaa,Illes Balears,,,,0.08,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,low,"VERIFY: 8-11% by bracket, brackets not in source"
+ccaa,País Vasco,,,,0.04,,,,,,,,,https://www.gibobs.com/blog/itp-2026/,2026-07-23,low,"VERIFY: 4-7% by territory (foral)"

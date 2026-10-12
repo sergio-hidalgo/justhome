@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { defaultLocale, t } from '../i18n';
+
+const locale = defaultLocale;
+---
+
+<Base locale={locale}>
+  <h1>{t(locale, 'placeholder.heading')}</h1>
+  <p>{t(locale, 'placeholder.body')}</p>
+</Base>

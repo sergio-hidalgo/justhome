@@ -1,0 +1,28 @@
+---
+import '../styles/base.css';
+import { defaultLocale, t, type Locale } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t(locale, 'app.name')}</title>
+  </head>
+  <body>
+    <header>
+      <strong>{t(locale, 'app.name')}</strong>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>{t(locale, 'footer.disclaimer')}</footer>
+  </body>
+</html>

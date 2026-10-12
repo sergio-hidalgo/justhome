@@ -1,0 +1,219 @@
+{
+  "name": "housing-ana-carlos-recomputed",
+  "source": "DeepSeek notes §vivienda — recomputed; original seller BATNA 56.25 was wrong (30 d = 0 for seller)",
+  "issues": {
+    "price": [
+      300000,
+      320000,
+      340000
+    ],
+    "closingDays": [
+      30,
+      60,
+      90
+    ],
+    "costs": [
+      "buyer",
+      "split",
+      "seller"
+    ]
+  },
+  "me": {
+    "label": "Ana (buyer)",
+    "weights": {
+      "price": 0.55,
+      "closingDays": 0.25,
+      "costs": 0.2
+    },
+    "scores": {
+      "price": [
+        100,
+        50,
+        0
+      ],
+      "closingDays": [
+        100,
+        50,
+        0
+      ],
+      "costs": [
+        0,
+        50,
+        100
+      ]
+    },
+    "batnaPackage": {
+      "price": 310000,
+      "closingDays": 90,
+      "costs": "buyer"
+    },
+    "batnaUtility": 41.25
+  },
+  "other": {
+    "label": "Carlos (seller)",
+    "weights": {
+      "price": 0.5,
+      "closingDays": 0.3,
+      "costs": 0.2
+    },
+    "scores": {
+      "price": [
+        0,
+        50,
+        100
+      ],
+      "closingDays": [
+        0,
+        50,
+        100
+      ],
+      "costs": [
+        100,
+        50,
+        0
+      ]
+    },
+    "batnaPackage": {
+      "price": 305000,
+      "closingDays": 30,
+      "costs": "buyer"
+    },
+    "batnaUtility": 26.25
+  },
+  "expected": {
+    "zopaCount": 10,
+    "zopa": [
+      {
+        "price": 300000,
+        "closingDays": 60,
+        "costs": "buyer",
+        "uMe": 67.5,
+        "uOther": 35.0
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "buyer",
+        "uMe": 55.0,
+        "uOther": 50.0
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "split",
+        "uMe": 65.0,
+        "uOther": 40.0
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "seller",
+        "uMe": 75.0,
+        "uOther": 30.0
+      },
+      {
+        "price": 320000,
+        "closingDays": 30,
+        "costs": "buyer",
+        "uMe": 52.5,
+        "uOther": 45.0
+      },
+      {
+        "price": 320000,
+        "closingDays": 30,
+        "costs": "split",
+        "uMe": 62.5,
+        "uOther": 35.0
+      },
+      {
+        "price": 320000,
+        "closingDays": 60,
+        "costs": "split",
+        "uMe": 50.0,
+        "uOther": 50.0
+      },
+      {
+        "price": 320000,
+        "closingDays": 60,
+        "costs": "seller",
+        "uMe": 60.0,
+        "uOther": 40.0
+      },
+      {
+        "price": 320000,
+        "closingDays": 90,
+        "costs": "seller",
+        "uMe": 47.5,
+        "uOther": 55.0
+      },
+      {
+        "price": 340000,
+        "closingDays": 30,
+        "costs": "seller",
+        "uMe": 45.0,
+        "uOther": 50.0
+      }
+    ],
+    "pareto": [
+      {
+        "price": 300000,
+        "closingDays": 60,
+        "costs": "buyer",
+        "uMe": 67.5,
+        "uOther": 35.0,
+        "nashProduct": 229.6875
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "buyer",
+        "uMe": 55.0,
+        "uOther": 50.0,
+        "nashProduct": 326.5625
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "split",
+        "uMe": 65.0,
+        "uOther": 40.0,
+        "nashProduct": 326.5625
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "seller",
+        "uMe": 75.0,
+        "uOther": 30.0,
+        "nashProduct": 126.5625
+      },
+      {
+        "price": 320000,
+        "closingDays": 90,
+        "costs": "seller",
+        "uMe": 47.5,
+        "uOther": 55.0,
+        "nashProduct": 179.6875
+      }
+    ],
+    "nashTie": [
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "buyer"
+      },
+      {
+        "price": 300000,
+        "closingDays": 90,
+        "costs": "split"
+      }
+    ],
+    "nash": {
+      "price": 300000,
+      "closingDays": 90,
+      "costs": "split",
+      "product": 326.5625,
+      "tieBrokenBy": "ks_distance"
+    }
+  }
+}

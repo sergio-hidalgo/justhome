@@ -1,0 +1,61 @@
+{
+  "name": "estimate-madrid",
+  "source": "DeepSeek notes §BATNA vendedor vivienda habitual",
+  "property": {
+    "askingPrice": 340000,
+    "city": "Madrid",
+    "daysOnMarket": 75,
+    "priceDrops": 0
+  },
+  "market": {
+    "negotiationMargin": 0.11,
+    "band": 0,
+    "domAdjustments": "zeroed",
+    "horizonMonths": 3
+  },
+  "cases": [
+    {
+      "scenario": "A",
+      "decayRange": [
+        150,
+        150
+      ],
+      "expectedReservationP50": 302150
+    },
+    {
+      "scenario": "B",
+      "decayRange": [
+        1000,
+        1000
+      ],
+      "expectedReservationP50": 299600
+    }
+  ],
+  "sourcedCases": {
+    "note": "national fallback margin 0.06 (idealista Q2-2026 proxy), AEFI holding costs, H=3",
+    "market": {
+      "negotiationMargin": 0.06,
+      "band": 0,
+      "domAdjustments": "zeroed",
+      "horizonMonths": 3
+    },
+    "cases": [
+      {
+        "scenario": "A",
+        "decayRange": [
+          183,
+          183
+        ],
+        "expectedReservationP50": 319051
+      },
+      {
+        "scenario": "B",
+        "decayRange": [
+          1017,
+          1017
+        ],
+        "expectedReservationP50": 316549
+      }
+    ]
+  }
+}
