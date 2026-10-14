@@ -1,6 +1,6 @@
 # Spec 02 — Domain types and shared schemas
 
-Status: todo
+Status: done
 Phase: 0
 Depends on: 01
 
