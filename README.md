@@ -14,7 +14,7 @@ Source of truth for product decisions: the "Game-Theory Housing Negotiation App 
 
 ## Running locally
 
-Requirements: Node ≥ 22.9 and pnpm 11. Docker is only needed for the local Supabase stack.
+Requirements: Node ≥ 22.18 and pnpm 11. Docker is only needed for the local Supabase stack.
 
 First-time setup:
 
