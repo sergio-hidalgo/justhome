@@ -17,7 +17,7 @@ interface Entitlements {
   buyerTier: 'free' | 'paid';
   buyerSlots: { total: number; used: number; available: number; nextExpiry?: string };
   sellerPlan: 'none' | 'seller5' | 'seller_plus';
-  sellerActive: boolean;           // subscription active or trialing
+  sellerActive: boolean; // subscription active or trialing
   sellerFreeAnalysisAvailable: boolean;
   sellerPropertyLimit: number | null;
   canExport: boolean;
@@ -26,15 +26,15 @@ interface Entitlements {
 
 R-12.2 Rules (constitution D-01…D-07):
 
-| capability | anonymous buyer | paid buyer (≥1 non-expired pack) | seller plan none | seller5 | seller_plus |
-|---|---|---|---|---|---|
-| create property | 1 total | slots available | 1, if free analysis unused | ≤ 5 active | ≤ cap |
-| issues | 3 fixed | all 7 | all 7 (preview) | all 7 | all 7 |
-| weights | presets | swing | swing | swing | swing |
-| signals per property | 3, free-tier codes only | unlimited | unlimited | unlimited | unlimited |
-| analyses | unlimited, tier free | unlimited, tier paid | **1** (tier paid) | unlimited | unlimited |
-| history / export | ✗ | ✔ | ✗ | ✔ | ✔ |
-| counterparts per property | 1 | 1 | 1 | unlimited | unlimited |
+| capability                | anonymous buyer         | paid buyer (≥1 non-expired pack) | seller plan none           | seller5    | seller_plus |
+| ------------------------- | ----------------------- | -------------------------------- | -------------------------- | ---------- | ----------- |
+| create property           | 1 total                 | slots available                  | 1, if free analysis unused | ≤ 5 active | ≤ cap       |
+| issues                    | 3 fixed                 | all 7                            | all 7 (preview)            | all 7      | all 7       |
+| weights                   | presets                 | swing                            | swing                      | swing      | swing       |
+| signals per property      | 3, free-tier codes only | unlimited                        | unlimited                  | unlimited  | unlimited   |
+| analyses                  | unlimited, tier free    | unlimited, tier paid             | **1** (tier paid)          | unlimited  | unlimited   |
+| history / export          | ✗                       | ✔                                | ✗                          | ✔          | ✔           |
+| counterparts per property | 1                       | 1                                | 1                          | unlimited  | unlimited   |
 
 A paid buyer whose packs all expired is treated as `free` for new properties but keeps read access to existing ones.
 

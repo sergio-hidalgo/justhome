@@ -11,6 +11,7 @@ Score any package for one side: per-issue value 0–100, weighted total utility,
 ## Requirements
 
 R-03.1 `valueOf(shape, level): number` in [0,100]:
+
 - `increasing`: linear from worst→0 to best→100, clamped.
 - `decreasing`: linear from worst→0 to best→100 where best < worst, clamped.
 - `peaked`: 100 at `ideal`, linear down to 0 at each end of `worst` range.
@@ -22,11 +23,11 @@ R-03.3 `satisfies(position.constraints, pkg): boolean` with ops `<=`, `>=`, `==`
 
 R-03.4 Weight presets for the free tier (and as counterpart priors):
 
-| profile | price | closingDays | costs |
-|---|---|---|---|
-| price_first | 0.60 | 0.20 | 0.20 |
-| speed_first | 0.35 | 0.45 | 0.20 |
-| balanced | 0.45 | 0.30 | 0.25 |
+| profile     | price | closingDays | costs |
+| ----------- | ----- | ----------- | ----- |
+| price_first | 0.60  | 0.20        | 0.20  |
+| speed_first | 0.35  | 0.45        | 0.20  |
+| balanced    | 0.45  | 0.30        | 0.25  |
 
 R-03.5 Swing weighting helper: `weightsFromSwing(points: Record<IssueKey, number>)` normalises user points (0–100 per issue) to weights summing to 1.
 
@@ -37,11 +38,11 @@ R-03.7 Trade-off rate between issues a and b for a level change Δ:
 
 R-03.8 Default ordinal score tables (overridable by user):
 
-| issue | buyer | seller |
-|---|---|---|
-| costs | buyer 0 / split 50 / seller 100 | buyer 100 / split 50 / seller 0 |
-| mortgageContingency | no 0 / yes 100 | no 100 / yes 0 |
-| furniture | none 0 / partial 50 / all 100 | none 100 / partial 50 / all 0 |
+| issue               | buyer                           | seller                          |
+| ------------------- | ------------------------------- | ------------------------------- |
+| costs               | buyer 0 / split 50 / seller 100 | buyer 100 / split 50 / seller 0 |
+| mortgageContingency | no 0 / yes 100                  | no 100 / yes 0                  |
+| furniture           | none 0 / partial 50 / all 100   | none 100 / partial 50 / all 0   |
 
 ## Acceptance criteria
 

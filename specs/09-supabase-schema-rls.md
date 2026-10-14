@@ -122,15 +122,29 @@ create table signal_catalog (
   question_keys text[] not null default '{}', tier text not null default 'paid'
 );
 
+create table market_sources (     -- mirrors data/market/sources.csv (spec 14 R-14.2)
+  source_id text primary key,
+  publisher text not null, title text not null, url text not null,
+  method_summary text,
+  reuse text not null check (reuse in ('cite_only','aggregate_ok','open_license')),
+  license_url text, checked_at date not null
+);
+
 create table market_reference (
   id uuid primary key default gen_random_uuid(),
   level text not null check (level in ('national','ccaa','province','city')),
   ccaa text, province text, city text,
-  negotiation_margin numeric, itp_rate numeric,
+  negotiation_margin numeric,
+  margin_kind text check (margin_kind in ('asking_to_sale','market_gap','listing_cut')),
+  itp_rate numeric,
   holding_cost_ranges jsonb,  -- {"A":[80,225],"B":[800,1500],"C":[400,800]}
   dom_adjustments jsonb, horizon_months numeric, rent_per_m2 numeric,
+  source_id text not null references market_sources,
   source_url text not null, as_of date not null,
-  created_at timestamptz not null default now()
+  confidence text not null check (confidence in ('low','medium','high')),
+  note text,
+  created_at timestamptz not null default now(),
+  check (negotiation_margin is null or margin_kind is not null)
 );
 
 create table joint_sessions ( -- spec 19
@@ -147,13 +161,15 @@ create table joint_sessions ( -- spec 19
 (`signal_catalog` must be created before `signals`; order in the real migration accordingly.)
 
 R-09.2 RLS enabled on every table. Policies:
+
 - `profiles`, `entitlements`, `buyer_packs`, `purchases`: `select` where `user_id/id = auth.uid()`; no client `insert/update` on `entitlements`, `buyer_packs`, `purchases` (service role only).
 - `properties`: all ops where `owner_id = auth.uid()`; `update` denied when status = `read_only`.
 - Child tables (`positions`, `counterparts`, `offers`, `signals`, `analyses`, `price_events`): access through `exists (select 1 from properties p where p.id = … and p.owner_id = auth.uid())`.
-- `signal_catalog`, `market_reference`: public `select`; writes service role only.
+- `signal_catalog`, `market_reference`, `market_sources`: public `select`; writes service role only.
 - `joint_sessions`: no client access (API with service role).
 
 R-09.3 Trigger `properties_before_insert` raises `slot_limit` / `plan_required` when:
+
 - buyer & anonymous (`auth.jwt()->>'is_anonymous' = 'true'`): already owns ≥ 1 buyer property;
 - buyer & authenticated: non-expired packs' slots_total − properties linked to them ≤ 0 (archived count — D-03); sets `pack_id` to the oldest non-expired pack with free slots;
 - seller: active seller properties ≥ plan limit (`none` → 1 allowed only while `seller_free_analysis_used = false`; `seller5` → 5; `seller_plus` → `SELLER_PLUS_MAX` setting, null = unlimited).
@@ -162,7 +178,7 @@ R-09.4 Trigger `signals_before_insert`: anonymous owner → max 3 signals per pr
 
 R-09.5 Scheduled function (pg_cron daily): set buyer properties to `read_only` when their pack expired (D-04); set seller properties to `read_only` when `subscription_status` not in (`active`,`trialing`) and `current_period_end < now()` (D-07).
 
-R-09.6 `seed.sql`: signal catalogue (spec 05 table). Market rows are loaded from `data/market/2026-10-12.csv` by the spec 14 importer (`pnpm db:reset` runs it after seeding). `market_reference` gains `confidence text` and `note text` columns.
+R-09.6 `seed.sql`: signal catalogue, exactly the rows of `packages/engine/test/catalog.fixture.ts` (spec 05). Market sources and rows are loaded from `data/market/sources.csv` and `data/market/2026-10-12.csv` by the spec 14 importer (`pnpm db:reset` runs it after seeding).
 
 ## Acceptance criteria
 
@@ -173,6 +189,7 @@ R-09.6 `seed.sql`: signal catalogue (spec 05 table). Market rows are loaded from
 - AC-09.5 Seller with plan `none`: first property OK; second fails with `plan_required`.
 - AC-09.6 Client insert into `entitlements` fails.
 - AC-09.7 Cron function marks expired-pack properties `read_only`; a later update to them fails.
+- AC-09.8 Integration test (Vitest against local Supabase after `pnpm db:reset`): the rows of `signal_catalog` equal `catalog.fixture.ts` after `catalogFromRows`.
 
 ## Files
 

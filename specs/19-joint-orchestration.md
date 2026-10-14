@@ -33,12 +33,12 @@ When the buyer and the seller of the same property are both on the platform, the
 
 ### R-19.4 What each side sees (`/mesa/[sessionId]`)
 
-| shown | never shown |
-|---|---|
-| whether a ZOPA exists | other side's BATNA, weights, constraints, signals |
-| 1–2 proposed packages | other side's surplus or pie share |
-| my surplus vs my BATNA (points and €) | which side's position blocks agreement |
-| widen hints if ZOPA empty (issue names only) | |
+| shown                                        | never shown                                       |
+| -------------------------------------------- | ------------------------------------------------- |
+| whether a ZOPA exists                        | other side's BATNA, weights, constraints, signals |
+| 1–2 proposed packages                        | other side's surplus or pie share                 |
+| my surplus vs my BATNA (points and €)        | which side's position blocks agreement            |
+| widen hints if ZOPA empty (issue names only) |                                                   |
 
 The API filters the response per viewer; a test asserts no field derived from the other side's position other than the proposed packages reaches the client.
 

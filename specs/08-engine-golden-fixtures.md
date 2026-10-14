@@ -14,13 +14,14 @@ R-08.1 Fixture loader `packages/engine/test/fixtures.ts` reads `/fixtures/*.json
 
 R-08.2 Golden tests:
 
-| fixture | asserts |
-|---|---|
-| `freelance.json` | BATNAs 32.5 / 52.5; ZOPA 5 packages (exact set); frontier 3; Nash (10k, 4, 60), product 156.25, pie 50 % |
-| `housing.json` | BATNAs 41.25 / 26.25; ZOPA 10; frontier 5; Nash tie listed in `nashTie`, chosen `(300k, 90 d, split)` via KS distance |
-| `estimate-madrid.json` | reservation p50 per case (spec 05 AC-05.5) |
+| fixture                | asserts                                                                                                               |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `freelance.json`       | BATNAs 32.5 / 52.5; ZOPA 5 packages (exact set); frontier 3; Nash (10k, 4, 60), product 156.25, pie 50 %              |
+| `housing.json`         | BATNAs 41.25 / 26.25; ZOPA 10; frontier 5; Nash tie listed in `nashTie`, chosen `(300k, 90 d, split)` via KS distance |
+| `estimate-madrid.json` | reservation p50 per case (spec 05 AC-05.5)                                                                            |
 
 R-08.3 Property tests (fast-check, 200 runs each, seeded):
+
 - utilities ∈ [0,100];
 - Nash ∈ frontier ⊆ ZOPA;
 - frontier members mutually non-dominated;

@@ -12,10 +12,10 @@ Buy Pack 5 once, subscribe to seller plans, manage billing — with entitlements
 
 R-13.1 Products / prices (Stripe, EUR, VAT handled by Stripe Tax, prices tax-inclusive):
 
-| product | type | price | env |
-|---|---|---|---|
-| Pack 5 (buyer) | one-off | €14.95 | `STRIPE_PRICE_PACK5` |
-| Seller 5 (1–5 properties) | recurring monthly | €19.95 | `STRIPE_PRICE_SELLER5` |
+| product                     | type              | price  | env                        |
+| --------------------------- | ----------------- | ------ | -------------------------- |
+| Pack 5 (buyer)              | one-off           | €14.95 | `STRIPE_PRICE_PACK5`       |
+| Seller 5 (1–5 properties)   | recurring monthly | €19.95 | `STRIPE_PRICE_SELLER5`     |
 | Seller Plus (6+ properties) | recurring monthly | €39.95 | `STRIPE_PRICE_SELLER_PLUS` |
 
 R-13.2 `POST /api/billing/checkout {product}` → Stripe Checkout session (mode `payment` or `subscription`), `client_reference_id = user.id`, success/cancel URLs back to the originating route with `?checkout=success|cancel`. Anonymous users must sign up first (spec 10).
@@ -26,13 +26,13 @@ R-13.4 `POST /api/billing/portal` → Customer Portal session (cancel, update ca
 
 R-13.5 `POST /api/billing/webhook` (raw body, signature verified, idempotent by `event.id`):
 
-| event | effect |
-|---|---|
-| checkout.session.completed (payment, pack5) | insert `purchases`, insert `buyer_packs` (expires_at = now + 6 months) |
-| customer.subscription.created / updated | update `entitlements.seller_plan`, `subscription_status`, `current_period_end` |
-| customer.subscription.deleted | `seller_plan = 'none'`, status `canceled` |
-| invoice.payment_failed | status `past_due`; UI banner |
-| charge.refunded (pack5) | expire that pack immediately |
+| event                                       | effect                                                                         |
+| ------------------------------------------- | ------------------------------------------------------------------------------ |
+| checkout.session.completed (payment, pack5) | insert `purchases`, insert `buyer_packs` (expires_at = now + 6 months)         |
+| customer.subscription.created / updated     | update `entitlements.seller_plan`, `subscription_status`, `current_period_end` |
+| customer.subscription.deleted               | `seller_plan = 'none'`, status `canceled`                                      |
+| invoice.payment_failed                      | status `past_due`; UI banner                                                   |
+| charge.refunded (pack5)                     | expire that pack immediately                                                   |
 
 R-13.6 Downgrade Plus → Seller 5 with > 5 active properties: allowed; extra properties (newest first) become `read_only` until the user archives some.
 

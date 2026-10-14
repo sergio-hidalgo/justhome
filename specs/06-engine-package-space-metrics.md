@@ -18,15 +18,15 @@ R-06.3 **Point estimate.** For metrics shown as single numbers, the counterpart 
 
 R-06.4 **Metrics per package ω** (vs point estimate):
 
-| field | definition |
-|---|---|
-| uMe, uOther | utilities |
-| sMe, sOther | U − b |
-| batnaCompliant | uMe ≥ bMe ∧ uOther ≥ bOther |
-| inZopa | uMe > bMe ∧ uOther > bOther (strict) |
-| pieShareMe | sMe / (sMe + sOther) when both > 0 |
-| acceptProb | share of draws where U_other,d(ω) > b_other,d |
-| eurMe | sMe × eurPerPoint(me) |
+| field          | definition                                    |
+| -------------- | --------------------------------------------- |
+| uMe, uOther    | utilities                                     |
+| sMe, sOther    | U − b                                         |
+| batnaCompliant | uMe ≥ bMe ∧ uOther ≥ bOther                   |
+| inZopa         | uMe > bMe ∧ uOther > bOther (strict)          |
+| pieShareMe     | sMe / (sMe + sOther) when both > 0            |
+| acceptProb     | share of draws where U_other,d(ω) > b_other,d |
+| eurMe          | sMe × eurPerPoint(me)                         |
 
 R-06.5 **ZOPA:** packages with `inZopa`. **P(ZOPA)** = share of draws in which at least one enumerated package is in that draw's strict ZOPA.
 

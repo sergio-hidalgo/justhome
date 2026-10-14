@@ -26,3 +26,5 @@ Smallest change: a `14-market-reference-data-amendment.md` (or an edit approved 
 ## Resolution
 
 Decision (product owner, 2026-10-12): accept the proposed resolution — a spec 14 amendment replaces the example rows with placeholder values and the real 18-column header, and fixes the R-14.6 / R-14.7 order. Resolved by `specs/14-market-reference-data-amendment.md` (R-14.A1, R-14.A5).
+
+Update (2026-10-14): amendments to specs not yet implemented were folded into the specs themselves (issue 005); see spec 14 R-14.1 (now 20 columns) and the renumbered R-14.6/R-14.7.

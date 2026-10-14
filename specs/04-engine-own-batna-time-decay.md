@@ -14,10 +14,10 @@ R-04.1 Input:
 
 ```ts
 interface OwnBatnaInput {
-  alternative: Package | null;      // best alternative deal; null = "keep status quo"
-  statusQuo?: Package;              // seller: keep the home at current asking terms; buyer: keep renting
-  monthlyWaitCost: number;          // € per month of waiting (user-entered or derived)
-  monthlyOpportunityCost?: number;  // € per month (seller B/C, investor)
+  alternative: Package | null; // best alternative deal; null = "keep status quo"
+  statusQuo?: Package; // seller: keep the home at current asking terms; buyer: keep renting
+  monthlyWaitCost: number; // € per month of waiting (user-entered or derived)
+  monthlyOpportunityCost?: number; // € per month (seller B/C, investor)
   alternativeExpiresInDays?: number;
 }
 ```
@@ -25,15 +25,15 @@ interface OwnBatnaInput {
 R-04.2 `batnaUtility(position, input, months = 0)`:
 `U(alt) − (monthlyWaitCost + monthlyOpportunityCost) × months / eurPerPoint`, floored at 0.
 
-R-04.3 Derived wait costs (used when the user leaves the field empty; values come from `market_reference`, never constants):
+R-04.3 Derived wait costs (used when the user leaves the field empty). Ranges come from `input.market` (spec 14 resolver), never constants; the amounts below are illustrative and the seed CSV wins. Tests use a test-local market object.
 
-| role / situation | default monthly wait cost |
-|---|---|
-| buyer renting | current rent € |
-| seller A — lives there, not bought | holding cost range low–high (seeded 80–225 €) |
-| seller B — already bought, double burden | 800–1,500 € |
-| seller C — needs to sell to buy | 400–800 € |
-| unknown | weighted mean of A/B/C by prior (≈ 400 €) |
+| role / situation                         | default monthly wait cost                     |
+| ---------------------------------------- | --------------------------------------------- |
+| buyer renting                            | current rent €                                |
+| seller A — lives there, not bought       | holding cost range low–high (seeded 80–225 €) |
+| seller B — already bought, double burden | 800–1,500 €                                   |
+| seller C — needs to sell to buy          | 400–800 €                                     |
+| unknown                                  | weighted mean of A/B/C by prior (≈ 400 €)     |
 
 For the user's own BATNA the midpoint of the range is used; the range is shown in UI.
 

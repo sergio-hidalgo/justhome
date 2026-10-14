@@ -35,3 +35,5 @@ Decision (product owner, 2026-10-12): **option A**.
 - Counterpart confidence drops one level when scenario C supplies the decay (same mechanism as R-14.7).
 
 Resolved by `specs/14-market-reference-data-amendment.md` and the national row of `data/market/2026-10-12.csv` (`holding_C` 400–800, `ASSUMPTION(holding_C)`, confidence low). Details settled in the amendment: the national row keeps its real `source_url`, so the `docs/market-sources.md` relaxation only applies to rows made entirely of assumptions; the confidence drop applies when the modal scenario's range is assumed, and market-data confidence drops stack, one level each, floored at `low` (product owner, 2026-10-12).
+
+Update (2026-10-14): amendments to specs not yet implemented were folded into the specs themselves (issue 005); see spec 14 R-14.3 and R-14.6 and spec 05 R-05.5.

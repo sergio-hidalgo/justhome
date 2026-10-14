@@ -49,7 +49,7 @@ spec, stop and write an issue.
 | Signal catalogue — likelihoods, batnaShift, weightNudge, margin deltas | Comes from the catalogue (DB is the source of truth), not hard-coded. Tests use a fixture catalogue. |
 
 Decided in issue 001 (option A): follow the table. `EngineInput.catalog` is
-defined in `specs/02-domain-types-and-schemas-amendment.md`; tests use
+defined in `specs/02-domain-types-and-schemas.md` (R-02.5, R-02.8); tests use
 `packages/engine/test/catalog.fixture.ts`. Do not copy figures from spec tables into logic when the spec says
 they are seeded or sourced
 (spec 04 R-04.3 amounts are illustrative; `data/market/2026-10-12.csv` wins).

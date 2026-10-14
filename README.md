@@ -1,16 +1,16 @@
 # vivienda-negocia — spec pack
 
-Spec-driven development pack for a web app that applies game theory (BATNA, ZOPA, Pareto, Nash, Kalai-Smorodinsky) to resale home negotiations in Spain, for buyers and sellers.
+Spec-driven development pack for a web app that applies game theory (BATNA, ZOPA, Pareto, Nash, Kalai-Smorodinsky) to resale home negotiations in Spain, for buyers and sellers, with a public knowledge layer (guides, market intelligence, methodology) that AI assistants can read and cite, pointing users to the app for the personalised analysis.
 
 Source of truth for product decisions: the "Game-Theory Housing Negotiation App — Product & Technical Spec" doc (rev 569, 2026-10-12). This pack turns it into small, ordered, implementable specs.
 
 ## How to use
 
 1. Read `CONSTITUTION.md` once. It is binding for every spec.
-2. Implement specs **in numeric order**. Each spec = one branch = **one commit** (or one PR) that makes its acceptance criteria pass.
-3. An agent (Claude Code / Antigravity) gets: `AGENTS.md` + `CONSTITUTION.md` + the one spec it is working on + any spec it lists under _Depends on_, plus every `specs/*-amendment.md` that names those specs in its `Amends:` line.
+2. Implement specs **in phase order** (`CONSTITUTION.md §8`: 0 → 1 → 2 → 3), numeric within a phase. Each spec = one branch = **one commit** (or one PR) that makes its acceptance criteria pass.
+3. An agent (Claude Code / Antigravity) gets: `AGENTS.md` + `CONSTITUTION.md` + the one spec it is working on + any spec it lists under _Depends on_ (plus any `specs/*-amendment.md` naming them, which exists only for specs already done).
 4. Bugs or gaps found while building go in `issues/` using `issues/_TEMPLATE.md`, never as silent changes to a finished spec.
-5. A spec is changed only through a new spec (`NN-...-amendment.md`) or an issue that references it.
+5. A spec not yet implemented (`Status: todo`) is edited in place, with an issue recording the decision. A finished spec (`Status: done`) is changed only through `NN-...-amendment.md`.
 
 ## Running locally
 
@@ -71,6 +71,9 @@ Other commands: `pnpm test`, `pnpm test:e2e` (run `pnpm --filter @vivienda/web e
 | 17  | Seller UI (functional)                                  | apps/web           | 2     |
 | 18  | Export (PDF/CSV)                                        | api + web          | 2     |
 | 19  | Joint orchestration (buyer ↔ seller)                    | engine + api + web | 3     |
+| 20  | Public knowledge layer (guides, methodology, GEO files) | apps/web           | 1 / 2 |
+| 21  | Market intelligence (city pages, studies, datasets)     | apps/web + data    | 2     |
+| 22  | GEO measurement and AI-channel attribution              | web + api + geo/   | 2     |
 
 Phase exit criteria are in `CONSTITUTION.md §8`.
 
@@ -83,12 +86,14 @@ README.md            this file
 CONSTITUTION.md      principles, stack, decisions, glossary
 AGENTS.md            instructions for coding agents
 specs/NN-*.md        one spec per commit
-specs/NN-*-amendment.md   binding amendments, applied with the spec they amend
+specs/NN-*-amendment.md   amendments to finished specs only (none yet)
 skills/<name>/       working checklists for agents (testing, engine-guardrails,
                      constitution-check, security-check, supabase-migrations,
-                     api-fastify, web-ui, code-refactor)
+                     api-fastify, web-ui, public-content,
+                     code-refactor)
 fixtures/            golden test data (engine)
 data/market/         sourced market seed CSV (spec 14)
-docs/                market sources and refresh cadence
+docs/                market sources and refresh cadence (+ GEO runbook, spec 22)
+geo/                 AI-visibility benchmark, runs and reports (spec 22)
 issues/              bug / gap reports during development
 ```

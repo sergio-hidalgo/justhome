@@ -1,6 +1,6 @@
 ---
 name: security-check
-description: Callable skill — the security & privacy checklist to run against a diff BEFORE declaring done any task that touches apps/api, Supabase (migrations, RLS, triggers, cron, auth), Stripe billing/webhooks, joint mode, exports/PDF, env variables or dependencies. Also invoke when the user asks for a security review or audit. Treat every item as blocking.
+description: Callable skill — the security & privacy checklist to run against a diff BEFORE declaring done any task that touches apps/api, Supabase (migrations, RLS, triggers, cron, auth), Stripe billing/webhooks, joint mode, exports/PDF, the anonymous free tier (CAPTCHA, per-IP caps), crawl files or metrics endpoints, env variables or dependencies. Also invoke when the user asks for a security review or audit. Treat every item as blocking.
 ---
 
 # Security Check
@@ -22,7 +22,7 @@ keys, data boundaries and abuse.
       else.
 - [ ] `.gitignore` covers `.env`, `.env.*` (except `.env.example`);
       `.env.example` files hold placeholders only and list exactly the
-      variables spec 01 R-01.5 names.
+      variables spec 01 R-01.5 names plus those added by later specs (`PUBLIC_SITE_URL`, `SITE_NAME`, `PUBLIC_TURNSTILE_SITE_KEY`, `DATA_LICENSE_URL`, `*_SITE_VERIFICATION`).
 - [ ] Env is validated with zod at startup; no `process.env.X` read outside the
       validated config module.
 
@@ -93,7 +93,8 @@ keys, data boundaries and abuse.
       SQL, or echoed payloads.
 - [ ] Rate limits in place: 60 req/min per user, `/analyze` 10/min (R-11.5);
       public catalogue/market endpoints are cached or limited.
-- [ ] CORS allows only the web origin; no `*` in production.
+- [ ] CORS allows only the web origin; no `*` in production — except
+      none: there is no public third-party API.
 - [ ] Nothing user-supplied is rendered as raw HTML: no `set:html` /
       `dangerouslySetInnerHTML` of counterpart labels or listing URLs; listing
       URLs are validated as `http(s)` and rendered as text/`rel="noopener"`.
@@ -129,7 +130,23 @@ keys, data boundaries and abuse.
 - [ ] Test data uses synthetic people and addresses; fixtures contain no real
       catastral references.
 
-## 8. Dependencies
+## 8. Automation and machine access (D-17, D-18)
+
+- [ ] No route, tool or document lets an anonymous caller run the engine
+      outside the app flow; `/docs` is 404 in production (AC-11.5).
+- [ ] Anonymous sign-in requires a valid CAPTCHA token; the Turnstile secret
+      lives only in the Supabase project settings, never in the repo.
+- [ ] Per-IP caps hold: 5 anonymous sign-ins/hour, 20 anonymous
+      analyses/day, public `GET`s and `/api/metrics/channel` rate-limited.
+- [ ] Deep-link parameters prefill property facts only; anything else is
+      ignored, never trusted, never auto-submitted.
+- [ ] `robots.txt`, sitemap and `llms.txt` never list private routes, `/api/`
+      or `/docs`; training crawlers are disallowed (only `Google-Extended` is allowed, on
+      public knowledge routes).
+- [ ] Metrics tables hold aggregates only: no IP, user id, cookie or input
+      value.
+
+## 9. Dependencies
 
 - [ ] Each new dependency: named in the summary, justified in one line,
       actively maintained, no `postinstall` doing network/filesystem surprises.

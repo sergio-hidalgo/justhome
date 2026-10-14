@@ -1,6 +1,6 @@
 ---
 name: constitution-check
-description: Callable skill — the product-rules review to run against a diff BEFORE declaring any spec done, especially specs that add or change user-facing copy, forms, dashboards, tiers, pricing, counterpart data or joint mode. Checks the diff against the Constitution's principles and decisions D-01…D-13. Pair with security-check. Treat every applicable item as blocking.
+description: Callable skill — the product-rules review to run against a diff BEFORE declaring any spec done, especially specs that add or change user-facing copy, forms, dashboards, tiers, pricing, counterpart data or joint mode. Checks the diff against the Constitution's principles and decisions D-01…D-20, including public knowledge pages and agent surfaces. Pair with security-check. Treat every applicable item as blocking.
 ---
 
 # Constitution check
@@ -11,9 +11,10 @@ spec itself mandates is not yours to fix silently — write an `issues/` file.
 
 ## 1. Principles
 
-- [ ] **Decide, don't teach.** Each new screen or panel ends in a concrete
+- [ ] **Decide, don't teach.** Each new app screen or panel ends in a concrete
       action ("what should I do now with this property?"), not an explanation of
-      game theory.
+      game theory. Public knowledge pages may explain, but open with the user's
+      decision question and its direct answer and end in a tool entry.
 - [ ] **Estimates, never certainties.** Every counterpart figure shows a range
       (p10–p90) and a confidence level (low / medium / high), and the copy says
       "estimado" / "estimated". No counterpart number appears as a bare value.
@@ -22,7 +23,7 @@ spec itself mandates is not yours to fix silently — write an `issues/` file.
       keeps the prior. The ≤ 3 limit applies per screen of profiling questions
       about the user's position or the counterpart; property facts (location,
       price, dates, size) are exempt (issue 004). The screens are defined in
-      `specs/16-buyer-ui-amendment.md` and `specs/17-seller-ui-amendment.md`;
+      `specs/16-buyer-ui.md` (R-16.1) and `specs/17-seller-ui.md` (R-17.1);
       a screen with more than 3 question groups fails the review.
 - [ ] **Non-manipulative.** Suggested scripts are questions to learn facts.
       Nothing suggests exploiting private hardship. No question asks for the
@@ -36,9 +37,19 @@ spec itself mandates is not yours to fix silently — write an `issues/` file.
 - [ ] **Functional UI first.** No design-system work, no engine/API change
       justified by visuals; copy and styling stay replaceable.
 - [ ] **Privacy by design.** Counterparts are labels, never people; joint mode
-      never reveals one side's private inputs to the other.
+      never reveals one side's private inputs to the other. Machine-readable
+      files contain only public knowledge, never user data.
+- [ ] **Legible to people and machines.** Public pages are server-rendered,
+      readable without JS, state sources/dates/units/method, and their JSON-LD
+      matches the visible page. Engine outputs carry assumptions and
+      limitations as data.
+- [ ] **Decision support, not valuation, brokerage or advice.** No "tasación",
+      "valor de mercado/real", "precio justo", no promised price outcome.
+- [ ] **No back door.** Nothing public runs the engine on caller inputs: no
+      public analysis endpoint, no MCP server, no third-party API docs.
+      Personalised analyses happen only in the app, under tier limits.
 
-## 2. Decisions D-01 … D-13
+## 2. Decisions D-01 … D-20
 
 - [ ] **D-01/D-03/D-04** Free buyer: anonymous, 1 property, 3 fixed issues,
       preset weights, ≤ 3 signals, confidence `low`, no history/export. A slot is
@@ -62,6 +73,21 @@ spec itself mandates is not yours to fix silently — write an `issues/` file.
       `/comprador` and `/vendedor`, not in separate routes.
 - [ ] **D-13** Scope stays resale homes, individual buyers and sellers: nothing
       for new-build, agencies or commercial property.
+- [ ] **D-14/D-17** Agents read public knowledge only; deep links prefill
+      property facts only; the free tier keeps its CAPTCHA and per-IP caps;
+      no endpoint or tool lets an agent run an analysis.
+- [ ] **D-15/D-16** Guides, market and methodology are public, free and never
+      gated; the personalised analysis is the conversion boundary; nothing
+      offers advisory, brokerage or human negotiation (self-service only).
+- [ ] **D-18** Crawler policy comes from `crawlers.ts`: search/user fetchers
+      allowed on public routes, training crawlers disallowed everywhere except `Google-Extended` on
+      public knowledge routes,
+      private routes and `/api/` disallowed and `noindex`.
+- [ ] **D-19** Market measures carry their kind and are never combined; the
+      engine range is never presented as a market statistic; no thin local
+      pages.
+- [ ] **D-20** New public entry points report their channel to the aggregate
+      counters; nothing identifies a user.
 
 ## 3. Conventions and surfaces
 
@@ -69,11 +95,14 @@ spec itself mandates is not yours to fix silently — write an `issues/` file.
       with `Intl.NumberFormat(locale, { currency: 'EUR' })` in UI.
 - [ ] Dates ISO `YYYY-MM-DD`; IDs UUID v4; DB `snake_case`, TS `camelCase`.
 - [ ] Every API response carrying engine output includes `engineVersion`.
-- [ ] Feature flags `FLAG_JOINT_MODE` and `FLAG_EXPORT` gate their features end
-      to end (route, UI entry points, nightly job).
-- [ ] The footer and PDF carry: "Herramienta de apoyo a la decisión; no es
-      asesoramiento legal, fiscal ni financiero" (and its EN equivalent), via
-      i18n keys. Tax hints say "consulta con un gestor".
+- [ ] Feature flags `FLAG_JOINT_MODE` and `FLAG_EXPORT` gate their features
+      end to end (route, UI entry points, nightly job).
+- [ ] Public URLs are stable (301 on rename; superseded content links
+      forward); canonical on `PUBLIC_SITE_URL`.
+- [ ] The footer and PDF carry the disclaimer of
+      R-15.3 ("…no es una tasación, ni intermediación inmobiliaria, ni
+      asesoramiento legal, fiscal, financiero o hipotecario") and its EN
+      equivalent, via i18n keys. Tax hints say "consulta con un gestor".
 - [ ] Locked free-tier features are visible-but-locked with the upgrade path
       (`UpgradeSheet`), not hidden and not silently missing.
 - [ ] Free-tier outputs are labelled as reduced accuracy; paid-only numbers

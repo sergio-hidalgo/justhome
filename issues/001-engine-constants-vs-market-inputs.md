@@ -30,16 +30,16 @@ One explicit rule for each of the three kinds of number, so no agent has to gues
 
 Classify numbers into three kinds:
 
-| kind | examples | lives in |
-|---|---|---|
-| Market data | margin, ITP, holding-cost ranges, DOM adjustments, horizon months, rent €/m² | `market_reference` → `EngineInput.market` (never in engine code) |
-| Model parameters | scenario priors, Dirichlet presets, κ, band, headroom, thresholds, `ANCHOR_MIN_ACCEPT` | one file `packages/engine/src/params.ts`, named constants, each with a spec reference; any change bumps `ENGINE_VERSION` |
-| Signal catalogue | likelihoods, batnaShift, weightNudge, margin deltas | DB (`signal_catalog`) is the source of truth → passed in as `EngineInput.catalog`; its hash is part of `inputsHash` so cached analyses invalidate when it changes |
+| kind             | examples                                                                               | lives in                                                                                                                                                          |
+| ---------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Market data      | margin, ITP, holding-cost ranges, DOM adjustments, horizon months, rent €/m²           | `market_reference` → `EngineInput.market` (never in engine code)                                                                                                  |
+| Model parameters | scenario priors, Dirichlet presets, κ, band, headroom, thresholds, `ANCHOR_MIN_ACCEPT` | one file `packages/engine/src/params.ts`, named constants, each with a spec reference; any change bumps `ENGINE_VERSION`                                          |
+| Signal catalogue | likelihoods, batnaShift, weightNudge, margin deltas                                    | DB (`signal_catalog`) is the source of truth → passed in as `EngineInput.catalog`; its hash is part of `inputsHash` so cached analyses invalidate when it changes |
 
 Options:
 
 - **A (recommended, hybrid):** as the table above. Needs a small spec 02 amendment adding `catalog` to `EngineInput`. Matches what specs 05 and 09 already say in prose.
-- **B (all bundled):** model parameters *and* catalogue are constants in the engine; `signal_catalog` in the DB is for display only. Simplest, but the DB catalogue and the engine can drift.
+- **B (all bundled):** model parameters _and_ catalogue are constants in the engine; `signal_catalog` in the DB is for display only. Simplest, but the DB catalogue and the engine can drift.
 - **C (all injected):** everything numeric comes through `EngineInput`. Purest, but every call site must assemble a large input and spec 05 tables would move into the DB.
 
 Also confirm that spec 04 R-04.3's figures are illustrative and the CSV (`data/market/2026-10-12.csv`) wins — see issue 002.
@@ -54,3 +54,5 @@ Decision (product owner, 2026-10-12): **option A (hybrid)**.
 - Spec 04 R-04.3 amounts are illustrative; `data/market/*.csv` wins.
 
 Resolved by `specs/02-domain-types-and-schemas-amendment.md` (also amends specs 04, 05, 09, 11). Spec 03's `presets.ts` stays the home of weight presets and default ordinal tables; `params.ts` holds the rest of the model parameters.
+
+Update (2026-10-14): amendments to specs not yet implemented were folded into the specs themselves (issue 005); this decision now lives in spec 02 (R-02.5, R-02.8), spec 04 (R-04.3), spec 05 (R-05.0, R-05.3), spec 09 (R-09.6) and spec 11 (R-11.2).
