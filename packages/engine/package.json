@@ -15,5 +15,9 @@
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
+  },
+  "devDependencies": {
+    "@vivienda/schemas": "workspace:*",
+    "fast-check": "^4.10.2"
   }
 }
