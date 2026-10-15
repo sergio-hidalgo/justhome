@@ -6,15 +6,38 @@ import { shape } from './shapes.js';
 /** Weights must sum to 1 within this tolerance (Constitution §5). */
 export const WEIGHT_SUM_TOLERANCE = 1e-9;
 
-export const hardConstraint = z
-  .object({
-    issue: issueKey,
-    op: z.enum(['<=', '>=', '=']).describe('Comparison the package level must satisfy.'),
-    value: z
-      .union([z.number(), z.string()])
-      .describe('Bound in the issue unit (euros for price) or a level id.'),
-  })
-  .describe('A limit the user will not cross, e.g. price <= 320000.');
+/**
+ * Hard constraint over a level schema (spec 02b): `<=`, `>=`, `==`, `!=` take one
+ * level, `in` takes a non-empty list. Shared by the engine Position (euros) and
+ * the priorities form steps (cents).
+ */
+export function constraintOver<L extends z.ZodType>(level: L, unit: string) {
+  return z
+    .union([
+      z
+        .object({
+          issue: issueKey,
+          op: z
+            .enum(['<=', '>=', '==', '!='])
+            .describe('Comparison the package level must satisfy.'),
+          value: level.describe(`Bound in the issue unit (${unit}) or a level id.`),
+        })
+        .describe('Comparison with a single level.'),
+      z
+        .object({
+          issue: issueKey,
+          op: z.literal('in').describe('The package level must be one of the listed levels.'),
+          value: z
+            .array(level.describe(`Allowed level in the issue unit (${unit}) or a level id.`))
+            .min(1)
+            .describe('Allowed levels; at least one.'),
+        })
+        .describe('Membership in a list of levels.'),
+    ])
+    .describe('A limit the user will not cross, e.g. price <= 320000.');
+}
+
+export const hardConstraint = constraintOver(z.union([z.number(), z.string()]), 'euros for price');
 export type HardConstraint = z.infer<typeof hardConstraint>;
 
 export const ownBatnaInput = z

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { isoDate } from './counterpart.js';
 import { freeIssueKey, issueKey } from './issues.js';
 import { cents } from './money.js';
-import { WEIGHT_SUM_TOLERANCE } from './position.js';
+import { WEIGHT_SUM_TOLERANCE, constraintOver } from './position.js';
 
 /**
  * Wizard step schemas (R-02.6). API-facing: money in integer cents.
@@ -135,15 +135,7 @@ const prioritiesPaid = z
       )
       .describe('Worst/best range per chosen issue.'),
     constraints: z
-      .array(
-        z
-          .object({
-            issue: issueKey,
-            op: z.enum(['<=', '>=', '=']).describe('Comparison the level must satisfy.'),
-            value: level.describe('Bound (price in cents) or a level id.'),
-          })
-          .describe('A hard limit.'),
-      )
+      .array(constraintOver(level, 'cents for price'))
       .describe('Hard limits the user will not cross.'),
     weights: z
       .partialRecord(issueKey, z.number().min(0).max(1).describe('Weight as a fraction [0, 1].'))

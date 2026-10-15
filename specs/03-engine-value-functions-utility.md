@@ -1,6 +1,6 @@
 # Spec 03 — Engine: value functions and utility (MAUT)
 
-Status: todo
+Status: done
 Phase: 0
 Depends on: 02
 
@@ -19,7 +19,7 @@ R-03.1 `valueOf(shape, level): number` in [0,100]:
 
 R-03.2 `utility(position, pkg): number` = Σ w_j · u_j(pkg_j) over `position.issues`. Issues missing from `pkg` throw.
 
-R-03.3 `satisfies(position.constraints, pkg): boolean` with ops `<=`, `>=`, `==`, `!=`, `in`.
+R-03.3 `satisfies(position.constraints, pkg): boolean` with ops `<=`, `>=`, `==`, `!=`, `in` (`in` takes a non-empty list; schema in spec 02b).
 
 R-03.4 Weight presets for the free tier (and as counterpart priors):
 
@@ -31,10 +31,10 @@ R-03.4 Weight presets for the free tier (and as counterpart priors):
 
 R-03.5 Swing weighting helper: `weightsFromSwing(points: Record<IssueKey, number>)` normalises user points (0–100 per issue) to weights summing to 1.
 
-R-03.6 Euro equivalence: `eurPerPoint(position) = |price.best − price.worst| × w_price / 100`. Used to translate any utility gap into euros. If price is not an issue, euro equivalents are omitted.
+R-03.6 Euro equivalence: `eurPerPoint(position) = |price.best − price.worst| / (100 × w_price)`, the euros worth one point of total utility U (issue 008). Used to translate any utility gap into euros. If price is not an issue, euro equivalents are omitted (`undefined`).
 
 R-03.7 Trade-off rate between issues a and b for a level change Δ:
-`rate = (w_a · Δu_a) / (w_b · Δu_b)` and the euro form `eurosFor(issue, fromLevel, toLevel) = w·Δu / (w_price · |∂u_price/∂€|)`.
+`rate = (w_a · Δu_a) / (w_b · Δu_b)` and the euro form `eurosFor(position, issue, fromLevel, toLevel) = w·Δu / (w_price · |∂u_price/∂€|)` (= `w·Δu × eurPerPoint`; `undefined` when price is not an issue).
 
 R-03.8 Default ordinal score tables (overridable by user):
 
@@ -50,7 +50,7 @@ R-03.8 Default ordinal score tables (overridable by user):
 - AC-03.2 `peaked` with worst [15,180], ideal 60 gives 100 at 60, 0 at 15 and 180, 50 at 120.
 - AC-03.3 Values outside a range are clamped, never < 0 or > 100.
 - AC-03.4 `weightsFromSwing({price:100, closingDays:50, costs:50})` → 0.5 / 0.25 / 0.25.
-- AC-03.5 With price range 300k–340k and w_price 0.55, `eurPerPoint` = 220 €.
+- AC-03.5 With price range 300k–340k and w_price 0.55, `eurPerPoint` = 727.27 € (40,000 / 55; issue 008).
 - AC-03.6 Property test: utility of any package is in [0,100].
 
 ## Files

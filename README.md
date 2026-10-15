@@ -48,6 +48,54 @@ pnpm --filter @vivienda/web start   # node dist/server/entry.mjs (set HOST/PORT 
 
 Other commands: `pnpm test`, `pnpm test:e2e` (run `pnpm --filter @vivienda/web exec playwright install chromium` once), `pnpm lint`, `pnpm typecheck`, `pnpm db:reset`.
 
+### Local Supabase (Docker)
+
+Requires Docker Desktop running and the Supabase CLI (`brew install supabase/tap/supabase`). Config lives in `supabase/` (`config.toml`, `migrations/`, `seed.sql`); containers are named `supabase_*_justhome`.
+
+First run:
+
+```bash
+supabase start            # pulls images (first time only), applies migrations, runs seed.sql
+supabase status -o env    # copy ANON_KEY and SERVICE_ROLE_KEY
+```
+
+Paste the keys into the `.env` files (local dev keys only — never commit them):
+
+- `apps/web/.env`: `SUPABASE_URL=http://127.0.0.1:54321`, `SUPABASE_ANON_KEY=<ANON_KEY>`
+- `apps/api/.env`: same two, plus `SUPABASE_SERVICE_ROLE_KEY=<SERVICE_ROLE_KEY>`
+
+Local services:
+
+| Service             | URL                                                       |
+| ------------------- | --------------------------------------------------------- |
+| API (used by apps)  | `http://127.0.0.1:54321`                                  |
+| Postgres            | `postgresql://postgres:postgres@127.0.0.1:54322/postgres` |
+| Studio (admin UI)   | `http://127.0.0.1:54323`                                  |
+| Mail catcher (auth) | `http://127.0.0.1:54324`                                  |
+
+Day-to-day:
+
+| Task                                   | Command                                                        |
+| -------------------------------------- | -------------------------------------------------------------- |
+| Start the stack (no-op if already up)  | `supabase start`                                               |
+| Show status, URLs and keys             | `supabase status`                                              |
+| Wipe DB, re-apply migrations + seed    | `pnpm db:reset`                                                |
+| Create a new migration                 | `supabase migration new <name>`                                |
+| List applied migrations                | `supabase migration list --local`                              |
+| Diff local DB changes into a migration | `supabase db diff -f <name>`                                   |
+| Open a psql shell                      | `psql postgresql://postgres:postgres@127.0.0.1:54322/postgres` |
+| Stop this project (keeps data)         | `supabase stop`                                                |
+| Stop and delete local data             | `supabase stop --no-backup`                                    |
+| Stop every local Supabase project      | `supabase stop --all`                                          |
+| Update the CLI                         | `brew upgrade supabase`                                        |
+
+Troubleshooting:
+
+- **"port 5432x already allocated"** — another Supabase project is running. Find it with `docker ps --filter label=com.supabase.cli.project`, then `supabase stop --all`.
+- **"Cannot connect to the Docker daemon"** — start Docker Desktop and wait for "Engine running".
+- **App fails with `Invalid environment configuration`** — a `.env` file is missing; copy it from `.env.example` (see First-time setup).
+- **Schema out of sync after pulling new migrations** — run `pnpm db:reset`.
+
 ## Map
 
 | #   | Spec                                                    | Layer              | Phase |
