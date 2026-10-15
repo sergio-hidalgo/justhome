@@ -67,7 +67,7 @@ pnpm db:reset       # supabase reset + seed
 
 <!-- BEGIN:turborepo-agent-rules -->
 
-## This is NOT the Turborepo you know
+# This is NOT the Turborepo you know
 
 Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p "require.resolve('turbo/package.json')"` from a workspace that depends on `turbo`.
 
