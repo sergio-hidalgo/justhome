@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import type { z } from 'zod';
 import { ISSUE_KEYS } from './issues.js';
-import { buyerPrioritiesStep, buyerPropertyStep, buyerSellerStep, formSchemas } from './forms.js';
+import {
+  buyerPrioritiesStep,
+  buyerPropertyStep,
+  buyerSellerStep,
+  formSchemas,
+  sellerPrioritiesStep,
+} from './forms.js';
 
 type Def = {
   type: string;
@@ -98,5 +104,25 @@ describe('form schemas', () => {
       weights: Object.fromEntries(ISSUE_KEYS.map((k) => [k, 1 / ISSUE_KEYS.length])),
     });
     expect(r.error).toBeUndefined();
+  });
+
+  it('AC-02b.3 priorities steps accept the spec 02b constraint operators', () => {
+    const constraints = [
+      { issue: 'price', op: '<=', value: 32_000_000 },
+      { issue: 'closingDays', op: '>=', value: 30 },
+      { issue: 'furniture', op: '==', value: 'all' },
+      { issue: 'mortgageContingency', op: '!=', value: 'no' },
+      { issue: 'costs', op: 'in', value: ['split', 'seller'] },
+    ];
+    const body = {
+      issues: [...ISSUE_KEYS],
+      ranges: {},
+      constraints,
+      weights: Object.fromEntries(ISSUE_KEYS.map((k) => [k, 1 / ISSUE_KEYS.length])),
+    };
+    expect(buyerPrioritiesStep.paid.safeParse(body).error).toBeUndefined();
+    expect(sellerPrioritiesStep.paid.safeParse(body).error).toBeUndefined();
+    const legacy = { ...body, constraints: [{ issue: 'price', op: '=', value: 1 }] };
+    expect(buyerPrioritiesStep.paid.safeParse(legacy).success).toBe(false);
   });
 });
