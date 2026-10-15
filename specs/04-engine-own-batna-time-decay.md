@@ -1,6 +1,6 @@
 # Spec 04 — Engine: own BATNA and time decay
 
-Status: todo
+Status: done
 Phase: 0
 Depends on: 03
 
@@ -23,7 +23,7 @@ interface OwnBatnaInput {
 ```
 
 R-04.2 `batnaUtility(position, input, months = 0)`:
-`U(alt) − (monthlyWaitCost + monthlyOpportunityCost) × months / eurPerPoint`, floored at 0.
+`U(alt) − (monthlyWaitCost + monthlyOpportunityCost) × months / eurPerPoint`, floored at 0. A null alternative uses `statusQuo`; with neither, the base utility is 0. When price is not an issue (`eurPerPoint` undefined, R-03.6) there is no decay and euro fields are omitted (issue 009).
 
 R-04.3 Derived wait costs (used when the user leaves the field empty). Ranges come from `input.market` (spec 14 resolver), never constants; the amounts below are illustrative and the seed CSV wins. Tests use a test-local market object.
 
@@ -35,11 +35,11 @@ R-04.3 Derived wait costs (used when the user leaves the field empty). Ranges co
 | seller C — needs to sell to buy          | 400–800 €                                     |
 | unknown                                  | weighted mean of A/B/C by prior (≈ 400 €)     |
 
-For the user's own BATNA the midpoint of the range is used; the range is shown in UI.
+For the user's own BATNA the midpoint of the range is used; the range is shown in UI. The A/B/C priors for "unknown" are passed in by the caller (spec 05 supplies them). The seller form's `not_habitual` situation uses the "unknown" row; an investor's cost goes in `monthlyOpportunityCost` (issue 009).
 
 R-04.4 Output: `{ today: {points, eur}, horizons: [{months:1|3|6, points, eur}], decayPerMonthEur, decayPerMonthPoints }`.
 
-R-04.5 If `alternativeExpiresInDays` passes before a horizon, that horizon's BATNA uses `statusQuo` instead of `alternative`.
+R-04.5 If `alternativeExpiresInDays` passes before a horizon, that horizon's BATNA uses `statusQuo` instead of `alternative`. A month is 30 days (`DAYS_PER_MONTH`, `params.ts`): the alternative is replaced when `alternativeExpiresInDays < months × 30` (issue 009).
 
 ## Acceptance criteria
 
@@ -51,4 +51,4 @@ R-04.5 If `alternativeExpiresInDays` passes before a horizon, that horizon's BAT
 
 ## Files
 
-`packages/engine/src/batna.ts`, tests.
+`packages/engine/src/batna.ts`, `packages/engine/src/params.ts`, `packages/engine/test/fixture-positions.ts` (fixture positions shared with spec 03 tests), tests.
